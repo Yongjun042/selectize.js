@@ -202,7 +202,7 @@ $.extend(Selectize.prototype, {
 		$dropdown.on('mouseenter mousedown mouseup click', '[data-disabled]>[data-selectable]', function(e) { e.stopImmediatePropagation(); });
 		$dropdown.on('mouseenter', '[data-selectable]', function() { return self.onOptionHover.apply(self, arguments); });
 		$dropdown.on('mouseup click', '[data-selectable]', function() { return self.onOptionSelect.apply(self, arguments); });
-		watchChildEvent($control, 'mouseup', '*:not(input)', function() { return self.onItemSelect.apply(self, arguments); });
+		watchChildEvent($control, 'mousedown', '*:not(input)', function() { return self.onItemSelect.apply(self, arguments); });
 		autoGrow($control_input);
 
 		$control.on({
@@ -941,7 +941,7 @@ $.extend(Selectize.prototype, {
 				}
 			}
 			e.preventDefault();
-		} else if ((eventName === 'mousedown' && self.isCtrlDown) || (eventName === 'keydown' && this.isShiftDown)) {
+		} else if (eventName === 'mousedown' && self.isCtrlDown) {
 			if ($item.hasClass('active')) {
 				idx = self.$activeItems.indexOf($item[0]);
 				self.$activeItems.splice(idx, 1);
