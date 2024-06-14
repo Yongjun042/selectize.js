@@ -437,6 +437,7 @@ $.extend(Selectize.prototype, {
           }
         }, 0);
 			}
+      return;
 		}
 		// retain focus by preventing native handling. if the
 		// event target is the input it should not be modified.
