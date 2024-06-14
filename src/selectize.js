@@ -446,7 +446,7 @@ $.extend(Selectize.prototype, {
 				// toggle dropdown
 				self.isOpen ? self.close() : self.open();
 			} else {
-				if (!defaultPrevented) {
+				if (!defaultPrevented && !self.isShiftDown && !self.isCmdDown) {
 						self.setActiveItem(null);
 				}
 				if (!self.settings.openOnFocus) {
@@ -924,7 +924,7 @@ $.extend(Selectize.prototype, {
 		// modify selection
 		eventName = e && e.type.toLowerCase();
 
-		if (eventName === 'mousedown' && self.isShiftDown && self.$activeItems.length) {
+		if (eventName === 'mouseup' && self.isShiftDown && self.$activeItems.length) {
 			$last = self.$control.children('.active:last');
 			begin = Array.prototype.indexOf.apply(self.$control[0].childNodes, [$last[0]]);
 			end   = Array.prototype.indexOf.apply(self.$control[0].childNodes, [$item[0]]);
@@ -941,7 +941,7 @@ $.extend(Selectize.prototype, {
 				}
 			}
 			e.preventDefault();
-		} else if ((eventName === 'mousedown' && self.isCtrlDown) || (eventName === 'keydown' && this.isShiftDown)) {
+		} else if (eventName === 'mouseup' && self.isCtrlDown) {
 			if ($item.hasClass('active')) {
 				idx = self.$activeItems.indexOf($item[0]);
 				self.$activeItems.splice(idx, 1);
